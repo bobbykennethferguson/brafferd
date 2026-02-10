@@ -1,11 +1,8 @@
-const CACHE_NAME = "bobby-rpg-v2";
+const CACHE_NAME = "bobby-rpg-v3";
 const ASSETS = [
   "./",
   "./index.html",
-  "./battle.html",
-  "./overworld.js",
-  "./battle.js",
-  "./style.css",
+  "./manifest.json",
   "bobby.png",
   "wes.png",
   "steven.png",
@@ -18,6 +15,9 @@ const ASSETS = [
   "bobby_left_2.png",
   "bobby_right_1.png",
   "bobby_right_2.png",
+
+  "icon-192.png",
+  "icon-512.png",
 
   "battlesong.mp3"
 ];
