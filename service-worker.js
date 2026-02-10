@@ -1,4 +1,4 @@
-const CACHE_NAME = "bobby-rpg-v3";
+const CACHE_NAME = "bobby-rpg-v4";
 const ASSETS = [
   "./",
   "./index.html",
@@ -6,6 +6,7 @@ const ASSETS = [
   "bobby.png",
   "wes.png",
   "steven.png",
+  "floor_tile.png",
 
   "bobby_down_1.png",
   "bobby_down_2.png",
