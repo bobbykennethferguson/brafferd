@@ -1245,11 +1245,11 @@ function stopBattleMusic() {
     floorTile: null,
     hotTubImg: null,
     hotTubs: [
-      { x: 3, y: 2 },
-      { x: 15, y: 4 },
-      { x: 7, y: 11 },
-      { x: 17, y: 12 },
-      { x: 1, y: 8 }
+      { x: 2, y: 1 },
+      { x: 14, y: 2 },
+      { x: 7, y: 10 },
+      { x: 16, y: 11 },
+      { x: 1, y: 6 }
     ]
   };
 
@@ -1412,11 +1412,11 @@ function stopBattleMusic() {
       }
     }
 
-    // hot tubs (2x2 tiles each)
+    // hot tubs (3x3 tiles each)
     const htImg = ow.hotTubImg;
     if (htImg && htImg.complete && htImg.naturalWidth > 0) {
       for (const ht of ow.hotTubs) {
-        ctx.drawImage(htImg, ht.x * t, ht.y * t, t * 2, t * 2);
+        ctx.drawImage(htImg, ht.x * t, ht.y * t, t * 3, t * 3);
       }
     }
 
