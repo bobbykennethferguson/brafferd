@@ -1241,7 +1241,8 @@ function stopBattleMusic() {
     moveDelay: 90,
     encounterCooldown: 0,
     encounterChance: 0.12, // 12% per step
-    inBattle: false
+    inBattle: false,
+    floorTile: null
   };
 
   // =========================
@@ -1297,6 +1298,11 @@ function stopBattleMusic() {
 
     // ✅ keep pixel art crisp
     ow.ctx.imageSmoothingEnabled = false;
+
+    // preload floor tile
+    ow.floorTile = new Image();
+    ow.floorTile.onload = () => owDraw();
+    ow.floorTile.src = "floor_tile.png";
 
     // ✅ preload Bobby frames once
     preloadOverworldSprites(() => {
@@ -1377,15 +1383,18 @@ function stopBattleMusic() {
     // clear (optional but safe)
     ctx.clearRect(0, 0, ow.canvas.width, ow.canvas.height);
 
-    // grass tiles
+    // floor tiles
+    const floorImg = ow.floorTile;
     for (let y = 0; y < ow.rows; y++) {
       for (let x = 0; x < ow.cols; x++) {
-        const a = (x + y) % 2 === 0;
-        ctx.fillStyle = a ? "#8BE28B" : "#79D879";
-        ctx.fillRect(x * t, y * t, t, t);
-
-        ctx.fillStyle = a ? "rgba(0,0,0,0.06)" : "rgba(0,0,0,0.04)";
-        ctx.fillRect(x * t + 2, y * t + 3, 2, 2);
+        if (floorImg && floorImg.complete && floorImg.naturalWidth > 0) {
+          ctx.drawImage(floorImg, x * t, y * t, t, t);
+        } else {
+          // fallback green tiles while image loads
+          const a = (x + y) % 2 === 0;
+          ctx.fillStyle = a ? "#8BE28B" : "#79D879";
+          ctx.fillRect(x * t, y * t, t, t);
+        }
       }
     }
 
