@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <link rel="apple-touch-icon" href="./icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1207,9 +1207,20 @@ function stopBattleMusic() {
     } else if (playerWon === false) {
       playSfx("hit");
       await typeMessage(`${player.name} fainted...\nGame over.`);
-    } else {
+    } else if (playerWon === null) {
       playSfx("ui");
-      await typeMessage("Battle ended.");
+      await typeMessage("Got away safely!");
+      state.canInput = true;
+      setButtons([
+        { label: "BACK TO OVERWORLD", onClick: () => {
+            stopBattleMusic();
+            setMessageInstant("");
+            showOverworld();
+            ow.inBattle = false;
+          }
+        }
+      ]);
+      return;
     }
 
     state.canInput = true;
@@ -1469,9 +1480,11 @@ function stopBattleMusic() {
 
     muteBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      ensureAudioUnlocked();
-
-      soundEnabled = !soundEnabled;
+      if (!audioCtx) {
+        ensureAudioUnlocked();
+      } else {
+        soundEnabled = !soundEnabled;
+      }
       muteBtn.textContent = soundEnabled ? "SOUND: ON" : "SOUND: OFF";
       if (soundEnabled) playSfx("ui");
     });
