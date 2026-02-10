@@ -1242,7 +1242,15 @@ function stopBattleMusic() {
     encounterCooldown: 0,
     encounterChance: 0.12, // 12% per step
     inBattle: false,
-    floorTile: null
+    floorTile: null,
+    hotTubImg: null,
+    hotTubs: [
+      { x: 3, y: 2 },
+      { x: 15, y: 4 },
+      { x: 7, y: 11 },
+      { x: 17, y: 12 },
+      { x: 1, y: 8 }
+    ]
   };
 
   // =========================
@@ -1304,6 +1312,11 @@ function stopBattleMusic() {
     ow.floorTile.onload = () => owDraw();
     ow.floorTile.onerror = () => console.warn("Failed to load floor_tile.png");
     ow.floorTile.src = "floor_tile.png";
+
+    // preload hot tub
+    ow.hotTubImg = new Image();
+    ow.hotTubImg.onload = () => owDraw();
+    ow.hotTubImg.src = "hot_tub.png";
 
     // ✅ preload Bobby frames once
     preloadOverworldSprites(() => {
@@ -1396,6 +1409,14 @@ function stopBattleMusic() {
           ctx.fillStyle = a ? "#8BE28B" : "#79D879";
           ctx.fillRect(x * t, y * t, t, t);
         }
+      }
+    }
+
+    // hot tubs (2x2 tiles each)
+    const htImg = ow.hotTubImg;
+    if (htImg && htImg.complete && htImg.naturalWidth > 0) {
+      for (const ht of ow.hotTubs) {
+        ctx.drawImage(htImg, ht.x * t, ht.y * t, t * 2, t * 2);
       }
     }
 
