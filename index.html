@@ -1302,6 +1302,7 @@ function stopBattleMusic() {
     // preload floor tile
     ow.floorTile = new Image();
     ow.floorTile.onload = () => owDraw();
+    ow.floorTile.onerror = () => console.warn("Failed to load floor_tile.png");
     ow.floorTile.src = "floor_tile.png";
 
     // ✅ preload Bobby frames once
